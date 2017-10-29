@@ -1,13 +1,2 @@
-import _ from 'lodash';
-
-function component() {
-  var element = document.createElement('div');
-
-  console.log('-------Hello');
-  // Lodash, now imported by this script
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
-  return element;
-}
-
-document.body.appendChild(component());
+import WeatherForecast from '/Users/MUR/Documents/own/react-weather-forecast/src/WeatherForecast.jsx';
+export default WeatherForecast;
