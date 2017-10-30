@@ -1,7 +1,16 @@
 let config = {
   entry: './src/index.js',
   output: {
-    filename: 'bundle.js'
+    filename: './dist/bundle.js'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+      }
+    ]
   }
 };
 

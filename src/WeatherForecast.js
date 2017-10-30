@@ -1,15 +1,6 @@
 import React from 'react';
 
 export default class WeatherForecast extends React.Component {
-  static propTypes = {
-    settings: React.PropTypes.shape({
-      latitude: React.PropTypes.number.isRequired,
-      longitude: React.PropTypes.number.isRequired,
-      location: React.PropTypes.string.isRequired,
-      units: React.PropTypes.string.isRequired,
-    }).isRequired,
-  };
-
   render() {
     const { settings } = this.props;
     let url = '//forecast.io/embed/#lat=' + settings.latitude + '&lon=' + settings.longitude + '&name=' + settings.location + '&units=' + settings.units;
@@ -22,3 +13,21 @@ export default class WeatherForecast extends React.Component {
     );
   }
 }
+
+WeatherForecast.propTypes = {
+  settings: PropTypes.shape({
+    latitude: React.PropTypes.number.isRequired,
+    longitude: React.PropTypes.number.isRequired,
+    location: React.PropTypes.string.isRequired,
+    units: React.PropTypes.string.isRequired,
+  })
+};
+
+WeatherForecast.defaultProps = {
+  settings: {
+    latitude: 90,
+    longitude: 28,
+    location: 'Dhaka',
+    units: 'us',
+  }
+};
