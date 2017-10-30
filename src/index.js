@@ -1,2 +1,2 @@
-import WeatherForecast from '/Users/MUR/Documents/own/react-weather-forecast/src/WeatherForecast';
+import WeatherForecast from '../src/WeatherForecast';
 export default WeatherForecast;
