@@ -1,7 +1,0 @@
-// vi:ft=javascript
-{
-  "presets": [
-    "es2017",
-    "react"
-  ]
-}

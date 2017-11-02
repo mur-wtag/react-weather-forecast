@@ -3,6 +3,7 @@ let config = {
   output: {
     filename: './dist/bundle.js'
   },
+  target: 'node',
   module: {
     loaders: [
       {
