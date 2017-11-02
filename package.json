@@ -2,46 +2,80 @@
   "name": "react-weather-forecast",
   "version": "1.0.0",
   "description": "Simple JS package to create simple weather widget defining personalized settings",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "jsnext:main": "es/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "start:dev": "webpack-dev-server"
+    "clean": "rimraf lib dist es",
+    "lint": "eslint src tests",
+    "start": "cd demo && node server.js",
+    "test": "cross-env BABEL_ENV=commonjs mocha --compilers js:babel-core/register --reporter spec tests/*.js",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack src/index.js dist/react-weather-forecast.js",
+    "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack src/index.js dist/react-weather-forecast.min.js",
+    "build:demo": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack demo/index.js demo/dist/react-weather-forecast.js",
+    "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
+    "gh-pages": "npm run build:demo && git add -f demo/dist && git commit -m \"deploy to gh-pages\" && git subtree split --prefix demo -b gh-pages && git push -f origin gh-pages:gh-pages && git branch -D gh-pages",
+    "prepublish": "npm run clean && npm run lint && npm run build"
   },
+  "authors": [
+    "M Mahabubur Rhaman <rony.cse36@gmail.com@gmail.com> (https://github.com/zackargyle)"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mur-wtag/react-weather-forecast.git"
+    "url": "https://github.com/mur-wtag/react-weather-forecast.git"
+  },
+  "peerDependencies": {
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.6.5",
+    "babel-loader": "^6.2.2",
+    "babel-polyfill": "^6.5.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "chai": "^3.2.0",
+    "cross-env": "^1.0.7",
+    "enzyme": "^2.3.0",
+    "eslint": "^2.11.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.8.1",
+    "eslint-plugin-jsx-a11y": "^1.2.3",
+    "eslint-plugin-react": "^5.1.1",
+    "mocha": "^2.2.5",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8",
+    "react-addons-test-utils": "^15.1.0",
+    "rimraf": "^2.5.2",
+    "sinon": "^1.17.4",
+    "webpack": "^1.12.13",
+    "webpack-dev-server": "^1.14.1"
   },
   "keywords": [
-    "reactjs",
-    "weather",
-    "forecast",
-    "degree",
-    "celcius",
-    "farenhite"
+    "react",
+    "react-component",
+    "clock",
+    "analog",
+    "time"
   ],
-  "author": "M Mahabubur Rhaman",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/mur-wtag/react-weather-forecast/issues"
   },
-  "homepage": "https://github.com/mur-wtag/react-weather-forecast#readme",
-  "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.3"
-  },
-  "dependencies": {
-    "lodash": "^4.17.4",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
-  }
+  "npmName": "react-weather-forecast",
+  "npmFileMap": [
+    {
+      "basePath": "/dist/",
+      "files": [
+        "*.js"
+      ]
+    }
+  ],
+  "files": [
+    "dist/",
+    "es/",
+    "lib/"
+  ],
+  "license": "MIT"
 }
